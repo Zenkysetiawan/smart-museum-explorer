@@ -16,12 +16,9 @@ export default function AdminCreateForm() {
 
     try {
       await createItem(formData);
-      setSuccess(true);
 
-      setTimeout(() => {
-        setSuccess(false);
-        router.refresh();
-      }, 1500);
+      router.push("/activity");
+      router.refresh();
     } catch (err: any) {
       console.error(err);
       alert(err.message); // 🔥 tampilkan error asli

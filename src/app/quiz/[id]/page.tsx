@@ -15,6 +15,8 @@ type QuizType = {
   correct_answer: string;
 };
 
+export const dynamic = "force-dynamic";
+
 export default function QuizPage() {
   const { id } = useParams();
 

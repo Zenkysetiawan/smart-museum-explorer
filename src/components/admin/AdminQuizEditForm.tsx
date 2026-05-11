@@ -41,7 +41,8 @@ export default function AdminQuizEditForm({ quiz, items }: any) {
 
       setTimeout(() => {
         router.push("/admin/quiz");
-      }, 1500);
+        router.refresh();
+      }, 500);
     }
 
     setLoading(false);
