@@ -76,13 +76,11 @@ export default function LoginPage() {
       });
 
       // 🔥 REFRESH SESSION
-      router.refresh();
-
       setTimeout(() => {
         if (profile?.role === "admin") {
-          router.push("/admin");
+          window.location.href = "/admin";
         } else {
-          router.push("/");
+          window.location.href = "/";
         }
       }, 1500);
     }

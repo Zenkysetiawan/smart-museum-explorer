@@ -53,10 +53,19 @@ export default function ScanPage() {
           try {
             const url = new URL(decodedText);
 
-            const id = url.pathname.split("/").pop();
+            // 🔥 AMBIL ID TERAKHIR YANG VALID
+            const paths = url.pathname.split("/").filter(Boolean);
 
-            router.push(`/item/${id}`);
+            const id = paths[paths.length - 1];
+
+            console.log("ID:", id);
+
+            if (id) {
+              router.push(`/item/${id}`);
+            }
           } catch {
+            console.log(decodedText);
+            // 🔥 fallback kalau QR cuma angka/id
             router.push(`/item/${decodedText}`);
           }
         },

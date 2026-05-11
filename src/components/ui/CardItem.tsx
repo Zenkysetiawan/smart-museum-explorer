@@ -40,7 +40,7 @@ export default function CardItem({ item }: { item: Item }) {
       .select("*")
       .eq("user_id", userId)
       .eq("item_id", item.id)
-      .single();
+      .maybeSingle();
 
     setIsBookmarked(!!data);
   }

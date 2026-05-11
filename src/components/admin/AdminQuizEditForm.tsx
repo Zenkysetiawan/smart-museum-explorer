@@ -49,7 +49,7 @@ export default function AdminQuizEditForm({ quiz, items }: any) {
 
     setTimeout(() => {
       setToast(null);
-    }, 3000);
+    }, 500);
   }
   return (
     <>

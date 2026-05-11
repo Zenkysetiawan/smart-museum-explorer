@@ -43,7 +43,7 @@ export default function LayoutWrapper({ children }: any) {
   return (
     <div className="flex flex-col min-h-screen">
       {/* 🔥 NAVBAR */}
-      {!isAdminPage && <Navbar user={user} />}
+      {!isAdminPage && <Navbar />}
 
       {/* 🔥 MAIN */}
       <main className="flex-1">{children}</main>

@@ -130,64 +130,104 @@ export default function DetailPage() {
   }
 
   return (
-    <main className="max-w-5xl mx-auto px-4 py-8">
-      {/* 🖼️ IMAGE */}
-      <div className="rounded-2xl overflow-hidden shadow mb-6">
-        <img
-          src={item.image_url}
-          alt={item.name}
-          className="w-full h-64 md:h-96 object-cover"
-        />
-      </div>
+    <main className="min-h-screen bg-linier-to-b from-gray-50 to-white py-8">
+      <div className="max-w-6xl mx-auto px-4">
+        {/* 🔥 CARD */}
+        <div className="bg-white border border-gray-200 rounded-3xl overflow-hidden shadow-sm">
+          {/* 🖼️ IMAGE */}
+          <div className="relative">
+            <img
+              src={item.image_url}
+              alt={item.name}
+              className="
+              w-full
+              h-64 sm:h-80 md:h-[450px]
+              object-cover
+            "
+            />
 
-      {/* 📝 TITLE */}
-      <h1 className="text-3xl md:text-4xl font-bold mb-2">{item.name}</h1>
+            {/* OVERLAY */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
 
-      {/* 🏷️ CATEGORY */}
-      <span className="inline-block bg-blue-100 text-blue-600 text-sm px-3 py-1 rounded-full mb-4">
-        {item.category}
-      </span>
+            {/* TITLE OVER IMAGE */}
+            <div className="absolute bottom-6 left-6 text-white">
+              <span className="bg-blue-500/90 backdrop-blur px-3 py-1 rounded-full text-sm">
+                {item.category || "Museum"}
+              </span>
 
-      {/* 📄 DESCRIPTION */}
-      <p className="text-gray-600 leading-relaxed mb-6">{item.description}</p>
+              <h1 className="text-3xl md:text-5xl font-extrabold mt-3">
+                {item.name}
+              </h1>
+            </div>
+          </div>
 
-      {/* 📊 INFO GRID */}
-      <div className="grid grid-cols-2 gap-4 mb-6">
-        <div className="bg-white border rounded-xl p-4">
-          <p className="text-sm text-gray-400">Tahun</p>
-          <p className="font-semibold">{item.year}</p>
+          {/* 🔥 CONTENT */}
+          <div className="p-6 md:p-8">
+            {/* DESCRIPTION */}
+            <div className="mb-8">
+              <h2 className="text-xl font-bold mb-3 text-gray-900">
+                📖 Deskripsi
+              </h2>
+
+              <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
+                {item.description}
+              </p>
+            </div>
+
+            {/* INFO */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+              <div className="bg-gray-50 border border-gray-200 rounded-2xl p-5">
+                <p className="text-sm text-gray-400 mb-1">📅 Tahun</p>
+
+                <p className="font-semibold text-lg">{item.year || "-"}</p>
+              </div>
+
+              <div className="bg-gray-50 border border-gray-200 rounded-2xl p-5">
+                <p className="text-sm text-gray-400 mb-1">📍 Asal</p>
+
+                <p className="font-semibold text-lg">{item.origin || "-"}</p>
+              </div>
+            </div>
+
+            {/* ACTION */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              {/* BOOKMARK */}
+              <button
+                onClick={toggleBookmark}
+                className={`
+                flex-1 py-4 rounded-2xl font-semibold text-white
+                transition duration-300 shadow-lg
+
+                ${
+                  isBookmarked
+                    ? "bg-yellow-500 hover:bg-yellow-600"
+                    : "bg-gray-800 hover:bg-black"
+                }
+              `}
+              >
+                {isBookmarked ? "⭐ Tersimpan" : "☆ Bookmark"}
+              </button>
+
+              {/* QUIZ */}
+              <button
+                onClick={handleQuiz}
+                disabled={!hasQuiz}
+                className={`
+                flex-1 py-4 rounded-2xl font-semibold text-white
+                transition duration-300 shadow-lg
+
+                ${
+                  hasQuiz
+                    ? "bg-blue-600 hover:bg-blue-700"
+                    : "bg-gray-300 cursor-not-allowed"
+                }
+              `}
+              >
+                🧠 Mulai Quiz
+              </button>
+            </div>
+          </div>
         </div>
-
-        <div className="bg-white border rounded-xl p-4">
-          <p className="text-sm text-gray-400">Asal</p>
-          <p className="font-semibold">{item.origin}</p>
-        </div>
-      </div>
-
-      {/* 🚀 ACTION BUTTON */}
-      <div className="flex gap-4">
-        <button
-          onClick={toggleBookmark}
-          className={`flex-1 py-3 rounded-xl shadow text-white transition ${
-            isBookmarked
-              ? "bg-yellow-500 scale-105"
-              : "bg-gray-400 hover:bg-yellow-400"
-          }`}
-        >
-          {isBookmarked ? "⭐ Tersimpan" : "☆ Bookmark"}
-        </button>
-
-        <button
-          onClick={handleQuiz}
-          disabled={!hasQuiz}
-          className={`flex-1 py-3 rounded-xl shadow text-white transition ${
-            hasQuiz
-              ? "bg-blue-600 hover:bg-blue-700"
-              : "bg-gray-400 cursor-not-allowed"
-          }`}
-        >
-          🧠 Mulai Quiz
-        </button>
       </div>
     </main>
   );

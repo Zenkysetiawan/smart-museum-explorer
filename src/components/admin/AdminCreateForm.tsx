@@ -16,8 +16,6 @@ export default function AdminCreateForm() {
 
     try {
       await createItem(formData);
-
-      router.push("/activity");
       router.refresh();
     } catch (err: any) {
       console.error(err);

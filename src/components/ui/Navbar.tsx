@@ -17,30 +17,52 @@ import {
   LogIn,
 } from "lucide-react";
 
-type NavbarProps = {
-  user: any;
-};
-
-export default function Navbar({ user }: NavbarProps) {
+export default function Navbar() {
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // 🔥 MOBILE MENU
+  const [user, setUser] = useState<any>(null);
+
   const [open, setOpen] = useState(false);
 
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
+    getUser();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        setUser(session.user);
+        getProfile(session.user.id);
+      } else {
+        setUser(null);
+        setName("");
+        setRole("");
+        setLoading(false);
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  async function getUser() {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
     if (user) {
-      getProfile(user.id);
-    } else {
-      setName("");
-      setRole("");
-      setLoading(false);
+      setUser(user);
+      await getProfile(user.id);
     }
-  }, [user]);
+
+    setLoading(false);
+  }
 
   // 🔥 GET PROFILE
   async function getProfile(userId: string) {
